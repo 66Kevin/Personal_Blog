@@ -1,0 +1,37 @@
+<!-- extends表明此页面继承自 base.html 文件 -->
+{% extends "base.html" %} {% load static %}
+<!-- 写入 base.html 中定义的 title -->
+{% block title %} Add New Post {% endblock title %}
+<!-- 写入 base.html 中定义的 content -->
+{% block content %}
+<!-- 写文章表单 -->
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <br>
+            <!-- 提交文章的表单 -->
+            <form method="post" action=".">
+                <!-- Django中需要POST数据的地方都必须有csrf_token -->
+                {% csrf_token %}
+                <!-- title -->
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <!-注意这里的name要与表单中的属性所对应-->
+                    <input type="text" class="form-control" id="title" name="title">
+                </div>
+                <!--description-->
+                <dic class="form-group">
+                    <label for="title">Description</label>
+                    <input type="text" class="form-group" name="desc">
+                </dic>
+                <!-- content -->
+                <div class="form-group">
+                    <label for="body">Write your story</label>
+                    <textarea type="text" class="form-control" id="body" name="content" rows="12"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Finish</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

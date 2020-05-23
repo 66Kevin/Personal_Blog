@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Welcome to my Blog!
+{% endblock title %}
+
+
+{% block content %}
+
+<div class="container">
+
+    <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+            <!-- Blog Post -->
+            {% for article in articles %}
+            <div class="post-preview">
+                <a href="{% url 'myBlog:article_detail' article.id %} ">
+                    <h2 class="post-title">
+                        {{ article.title }}
+                    </h2>
+                    <h3 class="post-subtitle">
+                        {{article.content|slice:'50'}}
+                    </h3>
+                </a>
+                <p class="post-meta">Posted by
+                    <a href="#">{{article.author}}</a>
+                    on {{article.created_time}}</p>
+            </div>
+            <hr>
+            {% endfor %}
+
+            <!-- Pagination -->
+            <ul class="pagination justify-content-center mb-4">
+                <li class="page-item">
+                    <a class="page-link" href="#">&larr; Older</a>
+                </li>
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Newer &rarr;</a>
+                </li>
+            </ul>
+
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
+
+            <!-- Search Widget new -->
+            <div class="sidebar-box pt-md-4">
+                <form action="#" class="search-form">
+                    <div class="form-group">
+                        <span class="icon icon-search"></span>
+                        <input type="text" class="form-control" placeholder="Type a keyword and hit enter">
+                    </div>
+                </form>
+            </div>
+
+            <!-- Categories Widget new-->
+            <div class="sidebar-box">
+                <h3 class="sidebar-heading">Categories</h3>
+                <ul class="categories">
+                    <li><a href="#">Fashion <span>(6)</span></a></li>
+                    <li><a href="#">Technology <span>(8)</span></a></li>
+                    <li><a href="#">Travel <span>(2)</span></a></li>
+                    <li><a href="#">Food <span>(2)</span></a></li>
+                    <li><a href="#">Photography <span>(7)</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-box">
+                <h3 class="sidebar-heading">Popular Articles</h3>
+                <div class="block-21 mb-4 d-flex">
+                    <a class="blog-img mr-4" style="background-image: url({% static 'img/image_1.jpg' %});"></a>
+                    <div class="text">
+                        <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control</a></h3>
+                        <div class="meta">
+                            <div><a href="#"> June 28, 2019</a></div>
+                            <div><a href="#"> Dave Lewis</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="block-21 mb-4 d-flex">
+                    <a class="blog-img mr-4" style="background-image: url({% static 'img/image_2.jpg' %});"></a>
+                    <div class="text">
+                        <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control</a></h3>
+                        <div class="meta">
+                            <div><a href="#"> June 28, 2019</a></div>
+                            <div><a href="#"> Dave Lewis</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="block-21 mb-4 d-flex">
+                    <a class="blog-img mr-4" style="background-image: url({% static 'img/image_3.jpg' %});"></a>
+                    <div class="text">
+                        <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control</a></h3>
+                        <div class="meta">
+                            <div><a href="#"> June 28, 2019</a></div>
+                            <div><a href="#"> Dave Lewis</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+</div>
+<!-- /.container -->
+
+<script>
+    window.sr = ScrollReveal();
+    sr.reveal('.post-preview', {
+        duration: 2000,
+        origin: 'left',
+        distance: '300px',
+        viewFactor: 0.2
+    });
+    sr.reveal('.sidebar-heading', {
+        duration: 2000,
+        origin: 'right',
+        distance: '300px',
+        viewFactor: 0.2
+    });
+    sr.reveal('.sidebar-box', {
+        duration: 2000,
+        origin: 'right',
+        distance: '300px',
+        viewFactor: 0.2
+    });
+    sr.reveal('.page-item', {
+        duration: 2000,
+        origin: 'bottom',
+        delay:1500,
+        distance: '300px',
+        viewFactor: 0.2
+    });
+</script>
+
+{% endblock content %}

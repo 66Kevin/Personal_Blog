@@ -1,0 +1,50 @@
+{% load static %}
+<html lang="zh-cn">
+<head>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keywords" content="Personal website,Blog">
+    <meta name="description" content="Personal website">
+    <meta name="author" content="Yueyi Wang">
+
+    <!--Title placeholder-->
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- load css file for bootstrap -->
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+
+    <!-- Custom fonts for this template -->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css'%}" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet'
+          type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+          rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'bootstrap/css/style.css'%}" rel="stylesheet">
+    <link href="{% static 'bootstrap/css/clean-blog.min.css'%}" rel="stylesheet">
+
+    <!-- Load javascript file for website animation-->
+    <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
+</head>
+
+
+<body>
+{% include 'header.html' %}
+
+{% block content %}{% endblock content %}
+
+{% include 'footer.html' %}
+
+
+<!-- bootstrap.js 依赖 jquery.js 和popper.js，因此在这里引入 -->
+<script src="{% static 'jquery/jquery-3.3.1.js' %}"></script>
+<script src="{% static 'popper/popper-1.14.4.js' %}"></script>
+<!-- 引入bootstrap的js文件 -->
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<!-- 引入layer.js -->
+<script src="{% static 'layer/layer.js' %}"></script>
+</body>
+
+</html>
