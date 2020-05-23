@@ -1,0 +1,38 @@
+{% load static %}
+
+
+<!-- Post Detail Page Header Img-->
+
+<header class="masthead" style="background-image: url({% static 'img/blog.jpg' %})">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="post-heading">
+                    <h2 style="color:white;text-align:center;">{{ article.title }}</h2>
+                    <span class="meta" style="text-align:center;">Posted by
+              <a href="#">{{ article.author }}</a>
+              on {{article.created_time}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<script>
+    window.sr = ScrollReveal();
+    sr.reveal('.post-heading', {
+        duration: 2000,
+        origin: 'top',
+        distance: '300px',
+        viewFactor: 0.2
+    });
+    sr.reveal('.meta', {
+        duration: 3500,
+        origin: 'bottom',
+        distance: '300px',
+        viewFactor: 0.2
+    });
+
+</script>
+

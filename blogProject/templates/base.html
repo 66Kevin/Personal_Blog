@@ -1,5 +1,5 @@
 {% load static %}
-<html lang="zh-cn">
+<html lang="en">
 <head>
     <!-- Meta -->
     <meta charset="utf-8">
@@ -23,7 +23,7 @@
 
     <!-- Custom styles for this template -->
     <link href="{% static 'bootstrap/css/style.css'%}" rel="stylesheet">
-    <link href="{% static 'bootstrap/css/clean-blog.min.css'%}" rel="stylesheet">
+    <link href="{% static 'bootstrap/css/clean-blog.css'%}" rel="stylesheet">
 
     <!-- Load javascript file for website animation-->
     <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
@@ -32,6 +32,7 @@
 
 <body>
 {% include 'header.html' %}
+
 
 {% block content %}{% endblock content %}
 
