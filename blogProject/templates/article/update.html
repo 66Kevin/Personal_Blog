@@ -1,5 +1,5 @@
 {% extends "base.html" %} {% load static %}
-{% block title %} 更新文章 {% endblock title %}
+{% block title %} update {% endblock title %}
 {% block content %}
 <div class="container">
     <div class="row">
@@ -8,16 +8,16 @@
             <form method="post" action=".">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="title">文章标题</label>
+                    <label for="title">Title</label>
                     <!-- 在 value 属性中指定文本框的初始值为旧的内容，即 article 对象中的 title 字段 -->
                     <input type="text" class="form-control" id="title" name="title" value="{{ article.title }}">
                 </div>
                 <div class="form-group">
-                    <label for="body">文章正文</label>
+                    <label for="body">content</label>
                     <!-- 文本域不需要 value 属性，直接在标签体中嵌入数据即可 -->
                     <textarea type="text" class="form-control" id="body" name="content" rows="12">{{ article.content }}</textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">完成</button>
+                <button type="submit" class="btn btn-primary">Finish</button>
             </form>
         </div>
     </div>

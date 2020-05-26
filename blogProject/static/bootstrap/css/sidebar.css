@@ -166,7 +166,12 @@ figure {
 
 img {
   vertical-align: middle;
-  border-style: none; }
+  border-style: none;
+  border-top-style: none;
+  border-right-style: none;
+  border-bottom-style: none;
+  border-left-style: none;
+}
 
 svg {
   overflow: hidden;
@@ -9204,6 +9209,64 @@ textarea.form-control {
       color: #000000;
       font-style: italic; }
 
+.rounded-circle {
+    border-radius: 50%!important;
+    border-top-left-radius: 50% !important;
+    border-top-right-radius: 50% !important;
+    border-bottom-right-radius: 50% !important;
+    border-bottom-left-radius: 50% !important;
+}
+
+.profile-image {
+    height: 200px;
+    width: 200px;
+    align-content: center;
+}
+
+.login100-form-title {
+    font-family: Oswald-Medium;
+    font-size: 30px;
+    color: #43383e;
+    line-height: 1.2;
+    text-align: center;
+    display: block;
+}
+.p-b-40 {
+    padding-bottom: 40px;
+}
+
+.wrap-login100 {
+    width: 320px;
+    background: transparent;
+    border-radius: 0px;
+}
+
+.p-b-30 {
+    padding-bottom: 30px;
+}
+.p-t-90 {
+    padding-top: 90px;
+}
+.limiter {
+    width: 100%;
+    margin: 0 auto;
+}
+.container-login100 {
+    width: 100%;
+    min-height: 100vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    position: relative;
+    background-color: #e6e6e6;
+}
+
 #ftco-loader {
   position: fixed;
   width: 96px;
@@ -9294,3 +9357,5 @@ textarea.form-control {
   100% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
+
+

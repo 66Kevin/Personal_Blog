@@ -10,10 +10,10 @@
                     <a class="nav-link" href="{% url 'myBlog:article_list' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="{% url 'myBlog:about' %}">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'myBlog:article_create' %}">Posts</a>
+                    <a class="nav-link" href="{% url 'myBlog:article_create' %}">Post</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contact</a>
@@ -25,6 +25,7 @@
                         {{ user.username }}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href='{% url "userprofile:profile" user.id %}'>Your profile</a>
                         <a class="dropdown-item" href='{% url "userprofile:logout" %}'>Logout</a>
                     </div>
                 </li>
@@ -39,18 +40,5 @@
 </nav>
 
 {% block headerImg %}{% endblock headerImg %}
-
-
-<script>
-    window.sr = ScrollReveal();
-    sr.reveal('.subheading', {
-        duration: 3000,
-        delay:900,
-        origin: 'bottom'
-    });
-    sr.reveal('.navbar', {
-        duration: 3000,
-        origin: 'bottom'
-    });
 
 </script>

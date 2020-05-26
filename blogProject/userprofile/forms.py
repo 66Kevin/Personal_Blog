@@ -1,9 +1,9 @@
-# 引入表单类
 from django import forms
-# 引入 User 模型
 from django.contrib.auth.models import User
+from .models import Profile
 
 
+# LoginForm
 class UserLoginForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Username", "required": "required"}),
                                max_length=50)
@@ -11,6 +11,7 @@ class UserLoginForm(forms.Form):
                                max_length=20)
 
 
+# RegisterForm
 class UserRegisterForm(forms.ModelForm):
     password = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Password", "required": "required"}),
                                max_length=20)
@@ -29,3 +30,10 @@ class UserRegisterForm(forms.ModelForm):
             return data.get('password')
         else:
             raise forms.ValidationError("密码输入不一致,请重试。")
+
+
+# Profile
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('phone', 'avatar', 'bio')

@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.conf.urls import url
+from django.conf.urls.static import static
 from django.urls import path, include
 from . import views
 
@@ -10,5 +12,6 @@ urlpatterns = [
     path('article_create/', views.article_create, name='article_create'),
     path('article_safe_delete/<int:id>/', views.article_safe_delete, name='article_safe_delete'),
     path('article_update/<int:id>/', views.article_update, name='article_update'),
+    path('about/', views.about, name='about'),
 ]
-
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

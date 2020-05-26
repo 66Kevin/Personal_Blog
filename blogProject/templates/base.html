@@ -11,8 +11,22 @@
     <!--Title placeholder-->
     <title>{% block title %}{% endblock %}</title>
 
-    <!-- load css file for bootstrap -->
-    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+     <style>
+        @font-face {
+            font-family: Oswald-Regular;
+            src: url({% static 'bootstrap/css/login/fonts/oswald/Oswald-Regular.ttf' %});
+        }
+
+        @font-face {
+            font-family: Oswald-Medium;
+            src: url({% static 'bootstrap/css/login/fonts/oswald/Oswald-Medium.ttf' %});
+        }
+
+        @font-face {
+            font-family: Oswald-Bold;
+            src: url({% static 'bootstrap/css/login/fonts/oswald/Oswald-Bold.ttf' %});
+        }
+    </style>
 
     <!-- Custom fonts for this template -->
     <link href="{% static 'vendor/fontawesome-free/css/all.min.css'%}" rel="stylesheet" type="text/css">
@@ -22,8 +36,12 @@
           rel='stylesheet' type='text/css'>
 
     <!-- Custom styles for this template -->
-    <link href="{% static 'bootstrap/css/style.css'%}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link href="{% static 'bootstrap/css/sidebar.css'%}" rel="stylesheet">
     <link href="{% static 'bootstrap/css/clean-blog.css'%}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/login/login.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css'%}">
+
 
     <!-- Load javascript file for website animation-->
     <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
@@ -32,7 +50,6 @@
 
 <body>
 {% include 'header.html' %}
-
 
 {% block content %}{% endblock content %}
 
@@ -46,6 +63,8 @@
 <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 <!-- 引入layer.js -->
 <script src="{% static 'layer/layer.js' %}"></script>
+
+{% block script %}{% endblock script %}
 </body>
 
 </html>

@@ -14,18 +14,20 @@ Post Detail
 {% include 'postDetailImg.html' %}
 {% endblock headerImg %}
 
+
 <div class="container">
     <div class="row">
-        <div class="col-12 alert alert-success">
-            · <a href="#" onclick="confirm_safe_delete()">Delete</a>
-            · <a href="{% url 'myBlog:article_update' article.id %}">Edit</a>
+        <div class="col-12 alert alert-success" style="text-align: center">
+             <i class="far fa-eye"></i>
+             Views: {{ article.total_views }}
+            <i class="far fa-thumbs-up"></i>
+            Likes:
+            {% if user == article.author %}
+            · <a href="#" onclick="confirm_safe_delete()"><i class="far fa-trash-alt"></i> Delete</a>
+            · <a href="{% url 'myBlog:article_update' article.id %}"><i class="far fa-edit"></i> Edit</a>
+            {% endif %}
             <!-- hidden form for csrf_token -->
-            <form
-                    style="display:none;"
-                    id="safe_delete"
-                    action="{% url 'myBlog:article_safe_delete' article.id %}"
-                    method="POST"
-            >
+            <form style="display:none;" id="safe_delete" action="{% url 'myBlog:article_safe_delete' article.id %}" method="POST">
                 {% csrf_token %}
                 <button type="submit">send</button>
             </form>
@@ -48,8 +50,19 @@ Post Detail
         </div>
 
         <!-- post content -->
-        <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="col-lg-7 col-md-9 mx-auto">
             <p>{{ article.content|safe }}</p>
+        </div>
+
+        <!-- catalog sidebar-->
+        <div class="col-3 mt-4" id="sidebar" class="sidebar">
+            <div class="sidebar__inner">
+                <h4><strong>catalog</strong></h4>
+                <hr>
+                <div>
+                    {{ toc|safe }}
+                </div>
+            </div>
         </div>
 
         <!--Tag system-->
@@ -98,7 +111,20 @@ Post Detail
     </div>
 </div>
 
-</div>
+
+
+<!-- sticky-sidebar style -->
+<style>
+    .sidebar {
+        will-change: min-height;
+    }
+
+    .sidebar__inner {
+        transform: translate(0, 0);
+        transform: translate3d(0, 0, 0);
+        will-change: position, transform;
+    }
+</style>
 
 <!--javascript-->
 <script>
@@ -126,6 +152,22 @@ Post Detail
         distance: '300px',
         viewFactor: 0.2
     });
+    sr.reveal('.sidebar__inner', {
+        duration: 1000,
+        origin: 'right',
+        distance: '300px',
+        viewFactor: 0.2
+    });
 </script>
-
 {% endblock content %}
+
+<!--{% block script %}-->
+<!--&lt;!&ndash;sticky-sidebar file&ndash;&gt;-->
+<!--<script src="{% static 'sticky_sidebar/jquery.sticky-sidebar.min.js' %}"></script>-->
+<!--<script type="text/javascript">-->
+<!--    $('#sidebar').stickySidebar({-->
+<!--        topSpacing: 0,-->
+<!--        bottomSpacing: 0,-->
+<!--    });-->
+<!--</script>-->
+<!--{% endblock script %}-->
