@@ -1,12 +1,8 @@
-# SetUp
+## Overview
 
-* 
+This web app is a blog app for Django
 
-
-
-
-
-# Features
+## Features
 
 * Login / Signup
 * Blogs are categorised by hashtags
@@ -19,11 +15,22 @@
 * Every blogs has a view counter
 * Search Blog.
 
+## dependencies
+
+* pillow
+* markdown
+* pinax-images
 
 
-# Update Log
 
-* Version 1.0.0: update scroll interactions for home page. 
-  * 1.0.1: update post detail page
+## Settings
+
+* 
+
+## Update Log
+
+* Version 1.0.0  update scroll interactions for home page. 
+  * 1.0.1 update post detail page
   * 1.0.2 update profile page and about page, and clean up .css file
-  * 1.0.3 add comment system
+
+* Version 1.0.3 add comment system
