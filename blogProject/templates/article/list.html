@@ -26,10 +26,18 @@ Welcome to my Blog!
                     <h3 class="post-subtitle">
                         {{article.content|slice:'50'}}
                     </h3>
+                    <!--                    {% if article.avatar %}-->
+                    <!--                    <div class="col-3">-->
+                    <!--                        <img src="{{ article.avatar.url }}" alt="avatar" style="max-width:100%; border-radius: 20px" >-->
+                    <!--                    </div>-->
+                    <!--                    {% endif %}-->
                 </a>
                 <p class="post-meta">Posted by
                     <a href="#">{{article.author}}</a>
-                    on {{article.created_time}}</p>
+                    on {{article.created_time}}
+                    <i style="padding-left: 280px" class="far fa-eye"></i>
+                    Views: {{ article.total_views }}
+                </p>
             </div>
             <hr>
             {% endfor %}
@@ -63,47 +71,34 @@ Welcome to my Blog!
             <div class="sidebar-box">
                 <h3 class="sidebar-heading">Categories</h3>
                 <ul class="categories">
-                    <li><a href="#">Fashion <span>(6)</span></a></li>
-                    <li><a href="#">Technology <span>(8)</span></a></li>
-                    <li><a href="#">Travel <span>(2)</span></a></li>
-                    <li><a href="#">Food <span>(2)</span></a></li>
-                    <li><a href="#">Photography <span>(7)</span></a></li>
+                    {% for article in articles %}
+                    <li><a href="#">{{article.column}} <span>(6)</span></a></li>
+                    {%endfor%}
                 </ul>
             </div>
 
+            <!--sidebar widget-->
             <div class="sidebar-box">
                 <h3 class="sidebar-heading">Popular Articles</h3>
+                {% for article in articles %}
                 <div class="block-21 mb-4 d-flex">
+                    {% if article.avatar %}
+                    <a class="blog-img mr-4" style="background-image: url({{ article.avatar.url }});"></a>
+                    {% else %}
                     <a class="blog-img mr-4" style="background-image: url({% static 'img/image_1.jpg' %});"></a>
+                    {% endif %}
                     <div class="text">
-                        <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control</a></h3>
+                        <h3 class="heading"><a href="#">{{ article.title }}</a></h3>
                         <div class="meta">
-                            <div><a href="#"> June 28, 2019</a></div>
-                            <div><a href="#"> Dave Lewis</a></div>
+                            <div><a href="#">{{article.created_time}}</a></div>
+                            <br>
+                            <div><a href="#"> {{article.author}}</a></div>
                         </div>
                     </div>
                 </div>
-                <div class="block-21 mb-4 d-flex">
-                    <a class="blog-img mr-4" style="background-image: url({% static 'img/image_2.jpg' %});"></a>
-                    <div class="text">
-                        <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control</a></h3>
-                        <div class="meta">
-                            <div><a href="#"> June 28, 2019</a></div>
-                            <div><a href="#"> Dave Lewis</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="block-21 mb-4 d-flex">
-                    <a class="blog-img mr-4" style="background-image: url({% static 'img/image_3.jpg' %});"></a>
-                    <div class="text">
-                        <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control</a></h3>
-                        <div class="meta">
-                            <div><a href="#"> June 28, 2019</a></div>
-                            <div><a href="#"> Dave Lewis</a></div>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
+
         </div>
         <!-- /.row -->
     </div>
@@ -133,7 +128,7 @@ Welcome to my Blog!
     sr.reveal('.page-item', {
         duration: 2000,
         origin: 'bottom',
-        delay:1500,
+        delay: 1500,
         distance: '300px',
         viewFactor: 0.2
     });

@@ -12,7 +12,7 @@
         <div class="col-12">
             <br>
             <!-- 提交文章的表单 -->
-            <form method="post" action=".">
+            <form method="post" action="." enctype="multipart/form-data">
                 <!-- Django中需要POST数据的地方都必须有csrf_token -->
                 {% csrf_token %}
                 <!-- title -->
@@ -21,11 +21,24 @@
                     <!-注意这里的name要与表单中的属性所对应-->
                     <input type="text" class="form-control" id="title" name="title">
                 </div>
-                <!--description-->
-                <dic class="form-group">
-                    <label for="title">Description</label>
-                    <input type="text" class="form-group" name="desc">
-                </dic>
+                <!-- avatar -->
+                <div class="form-group">
+                    <label for="avatar">标题图</label>
+                    <input type="file" class="form-control-file" name="avatar" id="avatar">
+                </div>
+                <!-- group -->
+                <div class="form-group">
+                    <label for="column">Category</label>
+                    <select class="form-control"
+                            id="column"
+                            name="column"
+                    >
+                        <option value="none">Please select a category</option>
+                        {% for column in columns %}
+                        <option value="{{ column.id }}">{{ column }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
                 <!-- content -->
                 <div class="form-group">
                     <label for="body">Write your story</label>

@@ -6,11 +6,11 @@ from .models import *
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('title', 'desc', 'category', 'author')
-    list_filter = ('author', 'category', 'created_time', 'tag')
+    list_display = ('title', 'desc', 'column', 'author')
+    list_filter = ('author', 'column', 'created_time', 'tag')
     fieldsets = (
         (None, {
-            'fields': ('title', 'desc', 'content', 'category', 'author')
+            'fields': ('title', 'desc', 'content', 'column', 'author')
         }),
         ('Advanced options', {
             'classes': ('collapse',),

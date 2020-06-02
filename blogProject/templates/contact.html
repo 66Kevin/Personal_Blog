@@ -1,0 +1,208 @@
+{% extends "base.html" %} {% load static %}
+{% block title %} Contact {% endblock title %}
+
+{% block content %}
+
+<style>
+    * {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+    }
+
+    .container-contact100 {
+        width: 100%;
+        min-height: 120vh;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        padding: 15px;
+        position: relative;
+        background-color: #e6e6e6;
+    }
+
+    .wrap-contact100 {
+        width: 550px;
+        background: transparent;
+        padding: 50px 0px 160px 0px;
+    }
+
+    .wrap-input100 {
+        width: 100%;
+        background-color: #fff;
+        border-radius: 31px;
+        margin-bottom: 16px;
+        position: relative;
+        z-index: 1;
+    }
+
+    textarea.input100 {
+        min-height: 169px;
+        padding: 19px 35px 0 35px;
+    }
+
+    .input100 {
+        position: relative;
+        display: block;
+        width: 100%;
+        background: #fff;
+        border-radius: 31px;
+        font-family: Ubuntu-Bold;
+        font-size: 18px;
+        color: #8f8fa1;
+        line-height: 1.2;
+    }
+
+    .contact100-form-btn::before {
+        content: "";
+        display: block;
+        position: absolute;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        -moz-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        -o-transform: translateX(-50%);
+        transform: translateX(-50%);
+        border-radius: 31px;
+        background-color: #827ffe;
+        pointer-events: none;
+        -webkit-transition: all 0.4s;
+        -o-transition: all 0.4s;
+        -moz-transition: all 0.4s;
+        transition: all 0.4s;
+    }
+
+    textarea {
+        outline: none;
+        border: none;
+    }
+
+    .contact100-form-btn {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 20px;
+        min-width: 150px;
+        height: 62px;
+        background-color: transparent;
+        border-radius: 31px;
+        font-family: Ubuntu-Bold;
+        font-size: 16px;
+        color: #fff;
+        line-height: 1.2;
+        text-transform: uppercase;
+        -webkit-transition: all 0.4s;
+        -o-transition: all 0.4s;
+        -moz-transition: all 0.4s;
+        transition: all 0.4s;
+        position: relative;
+        z-index: 1;
+    }
+
+    button {
+        outline: none !important;
+        border: none;
+        background: transparent;
+    }
+
+    .container-contact100-form-btn {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-top: 10px;
+    }
+
+    .contact100-form-title {
+        display: block;
+        font-family: Ubuntu-Bold;
+        font-size: 30px;
+        color: #403866;
+        line-height: 1.2;
+        text-transform: uppercase;
+        text-align: center;
+        padding-bottom: 49px;
+    }
+</style>
+
+
+<div class="container-contact100">
+
+    <div class="wrap-contact100">
+        <form class="contact100-form validate-form">
+				<span class="contact100-form-title">
+					Send Us A Message
+				</span>
+
+            <div class="wrap-input100 validate-input" data-validate="Please enter your name">
+                <input class="input100" type="text" name="name" placeholder="Full Name">
+                <span class="focus-input100"></span>
+            </div>
+
+            <div class="wrap-input100 validate-input" data-validate="Please enter your email: e@a.x">
+                <input class="input100" type="text" name="email" placeholder="E-mail">
+                <span class="focus-input100"></span>
+            </div>
+
+            <div class="wrap-input100 validate-input" data-validate="Please enter your phone">
+                <input class="input100" type="text" name="phone" placeholder="Phone">
+                <span class="focus-input100"></span>
+            </div>
+
+            <div class="wrap-input100 validate-input" data-validate="Please enter your message">
+                <textarea class="input100" name="message" placeholder="Leave Your Message"></textarea>
+                <span class="focus-input100"></span>
+            </div>
+
+            <div class="container-contact100-form-btn">
+                <button class="contact100-form-btn">
+						<span>
+							<i class="fa fa-paper-plane-o m-r-6" aria-hidden="true"></i>
+							Send
+						</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    window.sr = ScrollReveal();
+    sr.reveal('.contact100-form-title', {
+        duration: 2000,
+        origin: 'top',
+        distance: '100px',
+        viewFactor: 0.2
+    });
+    sr.reveal('.wrap-input100', {
+        duration: 2000,
+        origin: 'bottom',
+        delay: 100,
+        distance: '300px',
+        viewFactor: 0.2
+    });
+    sr.reveal('.container-contact100-form-btn', {
+        duration: 2000,
+        origin: 'bottom',
+        delay: 1500,
+        distance: '100px',
+        viewFactor: 0.2
+    });
+</script>
+{%endblock content%}

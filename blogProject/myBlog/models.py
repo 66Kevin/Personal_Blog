@@ -1,21 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import AbstractUser, User
 from django.db import models
-
-
-# Profile Model
-# class Profile(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-#     phone = models.CharField(max_length=20, blank=True)
-#     avatar = models.ImageField(upload_to='avatar/%Y%m%d/', blank=True)
-#     bio = models.TextField(max_length=500, blank=True)
-#
-#     class Meta:
-#         verbose_name = 'Profile'
-#         verbose_name_plural = verbose_name
-#
-#     def __str__(self):
-#         return 'user {}'.format(self.user.username)
+from django.urls import reverse
+from django.utils import timezone
+from PIL import Image
 
 
 # Tag Model
@@ -30,33 +18,39 @@ class Tag(models.Model):
         return self.name
 
 
-# Category Model
 class Category(models.Model):
-    name = models.CharField(max_length=30, verbose_name='标签分类')
-    index = models.IntegerField(default=999, verbose_name='分类的排序')
-
-    class Meta:
-        verbose_name = 'Categories'
-        verbose_name_plural = verbose_name
+    title = models.CharField(max_length=100, blank=True)
+    created = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return self.name
+        return self.title
 
 
 # Article Model
 class Article(models.Model):
     title = models.CharField(max_length=50, verbose_name="Title")
     desc = models.CharField(max_length=50, verbose_name="Description")
+    avatar = models.ImageField(upload_to='article/%Y%m%d/', blank=True)
     content = models.TextField(verbose_name="Content")
-    total_views = models.PositiveIntegerField(default=0,verbose_name="views")
+    total_views = models.PositiveIntegerField(default=0, verbose_name="views")
     likes = models.PositiveIntegerField(default=0)
     # click_count = models.IntegerField(default=0, verbose_name="C")
     is_recommend = models.BooleanField(default=False, verbose_name="Do you want to recommend this article?")
     created_time = models.DateTimeField(auto_now_add=True, verbose_name='Create time')
     last_modified_time = models.DateTimeField(auto_now=True, verbose_name='Last modified time')
-    author = models.ForeignKey(User, blank=True, null=True,verbose_name="Author", on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, blank=True, null=True, verbose_name="Category",on_delete=models.CASCADE)
+    author = models.ForeignKey(User, blank=True, null=True, verbose_name="Author", on_delete=models.CASCADE)
+    # category = models.ForeignKey(Category, blank=True, null=True, verbose_name="Category", on_delete=models.CASCADE)
     tag = models.ManyToManyField(Tag, verbose_name="tag")
+    column = models.ForeignKey(
+        Category,
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name='article'
+    )
+
+    def get_absolute_url(self):
+        return reverse('myBlog:article_detail', args=[self.id])
 
     class Meta:
         verbose_name = "Article"
@@ -66,18 +60,30 @@ class Article(models.Model):
         def __str__(self):
             return self.title
 
+    # 保存时处理图片
+    def save(self, *args, **kwargs):
+        # 调用原有的 save() 的功能
+        article = super(Article, self).save(*args, **kwargs)
+
+        # 固定宽度缩放图片大小
+        if self.avatar and not kwargs.get('update_fields'):
+            image = Image.open(self.avatar)
+            (x, y) = image.size
+            new_x = 400
+            new_y = int(new_x * (y / x))
+            resized_image = image.resize((new_x, new_y), Image.ANTIALIAS)
+            resized_image.save(self.avatar.path)
+
+        return article
+
 
 # Comment Model
 class Comment(models.Model):
-    content = models.TextField(verbose_name='评论内容')
-    created_time = models.DateTimeField(auto_now_add=True, verbose_name='发布时间')
-    views = models.PositiveIntegerField('浏览量', default=0)
-    likes = models.PositiveIntegerField('点赞数', default=0)
-    abstract = models.CharField(max_length=54, blank=True, null=True, verbose_name="文章摘要")
-    topped = models.BooleanField('置顶', default=False)
-    user = models.ForeignKey(User, blank=True, null=True, verbose_name='用户',on_delete=models.CASCADE)
-    article = models.ForeignKey(Article, blank=True, null=True, verbose_name='文章',on_delete=models.CASCADE)
-    pid = models.ForeignKey('self', blank=True, null=True, verbose_name='父级评论',on_delete=models.CASCADE)
+    content = models.TextField()
+    created_time = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, blank=True, null=True, verbose_name='user', on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, blank=True, null=True, verbose_name='article', on_delete=models.CASCADE)
+    pid = models.ForeignKey('self', blank=True, null=True, verbose_name='parent comment', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = "Comments"

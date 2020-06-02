@@ -7,17 +7,38 @@
             <br>
             <form method="post" action=".">
                 {% csrf_token %}
+                 <!-- Title -->
                 <div class="form-group">
                     <label for="title">Title</label>
                     <!-- 在 value 属性中指定文本框的初始值为旧的内容，即 article 对象中的 title 字段 -->
                     <input type="text" class="form-control" id="title" name="title" value="{{ article.title }}">
                 </div>
+                <!-- Category -->
                 <div class="form-group">
-                    <label for="body">content</label>
-                    <!-- 文本域不需要 value 属性，直接在标签体中嵌入数据即可 -->
-                    <textarea type="text" class="form-control" id="body" name="content" rows="12">{{ article.content }}</textarea>
+                    <label for="column">栏目</label>
+                    <select class="form-control"
+                            id="column"
+                            name="column"
+                    >
+                        <option value="none">请选择栏目..</option>
+                        {% for column in columns %}
+                        <option value="{{ column.id }}"
+                                {% if column.id == article.column.id %}
+                                selected
+                                {% endif %}
+                        >
+                            {{ column }}
+                        </option>
+                        {% endfor %}
+                    </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Finish</button>
+                    <!--Content-->
+                    <div class="form-group">
+                        <label for="body">content</label>
+                        <!-- 文本域不需要 value 属性，直接在标签体中嵌入数据即可 -->
+                        <textarea type="text" class="form-control" id="body" name="content" rows="12">{{ article.content }}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Finish</button>
             </form>
         </div>
     </div>
