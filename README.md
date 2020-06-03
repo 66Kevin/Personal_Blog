@@ -38,3 +38,23 @@ This web app is a blog app for Django
   * 1.0.2 update profile page and about page, and clean up .css file
 
 * Version 1.0.3 add comment system
+=======
+## dependencies
+
+* pillow
+* markdown
+* pinax-images
+
+
+
+## Settings
+
+* 
+
+## Update Log
+
+* Version 1.0.0  update scroll interactions for home page. 
+  * 1.0.1 update post detail page
+  * 1.0.2 update profile page and about page, and clean up .css file
+* Version 1.0.3 add comment system
+* Version 1.0.4 add pagination
