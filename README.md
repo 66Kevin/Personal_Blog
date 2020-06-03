@@ -1,16 +1,8 @@
-# Personal_Blog
+## Overview
 
-# Update
-* Version 1.0.0: update scroll interactions for home page. 
-  * 1.0.1: update post detail page
-  * 1.0.2 update profile page and about page, and clean up .css file
-  * 1.0.3 add comment system
+This web app is a blog app for Django
 
-
-
-
-
-# Features
+## Features
 
 * Login / Signup
 * Blogs are categorised by hashtags
@@ -22,4 +14,27 @@
 * Every blogs can be deleted and edit by author
 * Every blogs has a view counter
 * Search Blog.
+* Each Blog can be edited ONLY by the author
+* Scroll interactions for every page
+* Pagination
 
+## Dependencies
+
+* pillow
+* markdown
+* pinax-images
+* django-allauth
+
+
+
+## Settings
+
+* 
+
+## Update Log
+
+* Version 1.0.0  update scroll interactions for home page. 
+  * 1.0.1 update post detail page
+  * 1.0.2 update profile page and about page, and clean up .css file
+
+* Version 1.0.3 add comment system
