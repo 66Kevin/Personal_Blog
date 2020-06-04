@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Q, Count
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .forms import ArticlePostForm, CommentForm
@@ -12,10 +13,29 @@ def index(request):
 
 
 def article_list(request):
+    search = request.GET.get('search')
+    order = request.GET.get('order')
+    column = request.GET.get('column')
+
     article_list = Article.objects.all()
+    article_all = Article.objects.all()
+
+    if search:
+        article_list = article_list.filter(Q(title__icontains=search) | Q(content__icontains=search))
+    else:
+        search = ''
+
+    if column is not None:
+        article_list = article_list.filter(column__title__contains=column)
+
+    if order:
+        article_list = Article.objects.all().order_by('-total_views')
+
+    # OrderByViews（first 3)
+    article_view_list = Article.objects.all().order_by('-total_views')[:3]
+    # Paginator
     paginator = Paginator(article_list, 3)
     page = request.GET.get('page')
-    # articles = paginator.get_page(page)
     try:
         articles = paginator.page(page)
     except PageNotAnInteger:
@@ -23,13 +43,19 @@ def article_list(request):
     except EmptyPage:
         articles = paginator.page(paginator.num_pages)
 
-    context = { 'articles': articles }
+    context = {
+        'articles': articles,
+        'articles_all': article_all,
+        'order': order,
+        'search': search,
+        'column': column,
+        'articles_view_list': article_view_list
+    }
     return render(request, 'article/list.html', context)
 
 
 # 文章详情
 def article_detail(request, id):
-
     article = Article.objects.get(id=id)
     comments = Comment.objects.filter(article=id)
 

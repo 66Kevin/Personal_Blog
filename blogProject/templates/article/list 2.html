@@ -16,30 +16,6 @@ Welcome to my Blog!
     <div class="row">
         <!-- Blog Entries Column -->
         <div class="col-md-8">
-
-            <!--Search-->
-            {% if search %}
-            {% if articles %}
-            <h4>The result related to <span style="color: red">"{{ search }}"</span> are as follows：</h4>
-            <hr>
-            {% else %}
-            <h4>No related to <span style="color: red">"{{ search }}"</span></h4>
-            <hr>
-            {% endif %}
-            {% endif %}
-
-            <h5 style="padding-left: 75%">
-                <a href="{% url 'myBlog:home' %}">
-                    <i class="far fa-clock"></i>
-                    Recent
-                </a>
-                |
-                <a href="{% url 'myBlog:article_list' %}?order=total_views">
-                    <i class="fas fa-fire-alt"></i>
-                    Popular
-                </a>
-            </h5>
-
             <!-- Blog Post -->
             {% for article in articles %}
             <div class="post-preview">
@@ -67,7 +43,7 @@ Welcome to my Blog!
             {% endfor %}
 
             <!-- Pagination -->
-            <span style="margin-left: 42.75%;">
+             <span style="margin-left: 42.75%;">
                  Page {{ articles.number }} of {{ articles.paginator.num_pages }}
              </span>
             <ul class="pagination justify-content-center mb-4">
@@ -91,40 +67,71 @@ Welcome to my Blog!
                 </li>
                 {% endif %}
             </ul>
+
+
+            <!-- 页码导航 -->
+<!--<div class="pagination row">-->
+<!--    <div class="m-auto">-->
+<!--        <span class="step-links">-->
+<!--            &lt;!&ndash; 如果不是第一页，则显示上翻按钮 &ndash;&gt;-->
+<!--            {% if articles.has_previous %}-->
+<!--                <a href="?page=1" class="btn btn-success">-->
+<!--                    &laquo; 1-->
+<!--                </a>-->
+<!--                <span>...</span>-->
+<!--                <a href="?page={{ articles.previous_page_number }}" class="btn btn-secondary">-->
+<!--                    {{ articles.previous_page_number }}-->
+<!--                </a>-->
+<!--            {% endif %}-->
+
+<!--            &lt;!&ndash; 当前页面 &ndash;&gt;-->
+<!--            <span class="current btn btn-danger btn-lg"> {{ articles.number }} </span>-->
+
+<!--            &lt;!&ndash; 如果不是最末页，则显示下翻按钮 &ndash;&gt;-->
+<!--            {% if articles.has_next %}-->
+<!--                <a href="?page={{ articles.next_page_number }}"-->
+<!--                   class="btn btn-secondary">-->
+<!--                    {{ articles.next_page_number }}-->
+<!--                </a>-->
+<!--                <span>...</span>-->
+<!--                <a href="?page={{ articles.paginator.num_pages }}"-->
+<!--                   class="btn btn-success">-->
+<!--                    {{ articles.paginator.num_pages }} &raquo;-->
+<!--                </a>-->
+<!--            {% endif %}-->
+<!--        </span>-->
+<!--    </div>-->
+<!--</div>-->
+
         </div>
 
         <!-- Sidebar Widgets Column -->
         <div class="col-md-4">
+
             <!-- Search Widget new -->
             <div class="sidebar-box pt-md-4">
-                <h3 class="sidebar-heading"><i class="fas fa-search"></i> Search</h3>
-                <form action="#" class="search-form"
-                      href="{% url 'myBlog:article_list' %}?order=total_views&search={{ search }}">
+                <form action="#" class="search-form">
                     <div class="form-group">
                         <span class="icon icon-search"></span>
-                        <input type="text" class="form-control" name="search" placeholder="Type a keyword and hit enter"
-                               required>
+                        <input type="text" class="form-control" placeholder="Type a keyword and hit enter">
                     </div>
                 </form>
             </div>
 
             <!-- Categories Widget new-->
             <div class="sidebar-box">
-                <h3 class="sidebar-heading"><i class="fas fa-columns"></i> Categories</h3>
+                <h3 class="sidebar-heading">Categories</h3>
                 <ul class="categories">
-                    {% for article in articles_all %}
-                    <li><a href="{% url 'myBlog:article_list' %}?column={{ article.column }}">
-                        {{article.column}}
-                        </a>
-                    </li>
+                    {% for article in articles %}
+                    <li><a href="#">{{article.column}} <span>(6)</span></a></li>
                     {%endfor%}
                 </ul>
             </div>
 
             <!--sidebar widget-->
             <div class="sidebar-box">
-                <h3 class="sidebar-heading"><i class="fab fa-hotjar"></i> Popular Articles</h3>
-                {% for article in articles_view_list %}
+                <h3 class="sidebar-heading">Popular Articles</h3>
+                {% for article in articles %}
                 <div class="block-21 mb-4 d-flex">
                     {% if article.avatar %}
                     <a class="blog-img mr-4" style="background-image: url({{ article.avatar.url }});"></a>
@@ -137,11 +144,6 @@ Welcome to my Blog!
                             <div><a href="#">{{article.created_time}}</a></div>
                             <br>
                             <div><a href="#"> {{article.author}}</a></div>
-                            <br>
-                            <div>
-                                <i class="far fa-eye"></i>
-                                {{ article.total_views }}
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -177,7 +179,7 @@ Welcome to my Blog!
     sr.reveal('.page-item', {
         duration: 2000,
         origin: 'bottom',
-        delay: 800,
+        delay: 1500,
         distance: '300px',
         viewFactor: 0.2
     });

@@ -19,6 +19,7 @@ class ArticleAdmin(admin.ModelAdmin):
     )
 
 
+# admin.site.register(Profile)
 admin.site.register(Tag)
 admin.site.register(Category)
 # admin.site.register(Article, ArticleAdmin)

@@ -41,7 +41,13 @@ class Article(models.Model):
     author = models.ForeignKey(User, blank=True, null=True, verbose_name="Author", on_delete=models.CASCADE)
     # category = models.ForeignKey(Category, blank=True, null=True, verbose_name="Category", on_delete=models.CASCADE)
     tag = models.ManyToManyField(Tag, verbose_name="tag")
-    column = models.ForeignKey(Category, null=True, blank=True, on_delete=models.CASCADE, related_name='article' )
+    column = models.ForeignKey(
+        Category,
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name='article'
+    )
 
     def get_absolute_url(self):
         return reverse('myBlog:article_detail', args=[self.id])

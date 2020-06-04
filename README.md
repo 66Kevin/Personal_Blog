@@ -17,6 +17,8 @@ This web app is a blog app for Django
 * Each Blog can be edited ONLY by the author
 * Scroll interactions for every page
 * Pagination
+* Search blogs' content or title
+* blogs can be shown by recent or most popular
 
 ## Dependencies
 
