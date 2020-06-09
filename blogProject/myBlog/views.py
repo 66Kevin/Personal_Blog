@@ -13,6 +13,7 @@ def index(request):
 
 
 def article_list(request):
+    template = 'article/list.html'
     search = request.GET.get('search')
     order = request.GET.get('order')
     column = request.GET.get('column')
@@ -51,11 +52,12 @@ def article_list(request):
         'column': column,
         'articles_view_list': article_view_list
     }
-    return render(request, 'article/list.html', context)
+    return render(request, template, context)
 
 
-# 文章详情
+# Article detail page
 def article_detail(request, id):
+    template = 'article/detail.html'
     article = Article.objects.get(id=id)
     comments = Comment.objects.filter(article=id)
 
@@ -64,11 +66,8 @@ def article_detail(request, id):
 
     md = markdown.Markdown(
         extensions=[
-            # 包含 缩写、表格等常用扩展
             'markdown.extensions.extra',
-            # 语法高亮扩展
             'markdown.extensions.codehilite',
-            # 目录扩展
             'markdown.extensions.toc',
         ]
     )
@@ -76,7 +75,7 @@ def article_detail(request, id):
 
     context = {'article': article, 'toc': md.toc, 'comments': comments}
 
-    return render(request, 'article/detail.html', context)
+    return render(request, template, context)
 
 
 # safe delete article
@@ -86,46 +85,40 @@ def article_safe_delete(request, id):
         article.delete()
         return redirect("myBlog:article_list")
     else:
-        return HttpResponse("仅允许post请求")
+        return HttpResponse("ONlY support POST")
 
 
 def article_create(request):
-    # 判断用户是否提交数据
+    template = 'article/create.html'
     if request.method == "POST":
-        # 将提交的数据赋值到表单实例中
         article_post_form = ArticlePostForm(request.POST, request.FILES)
-        # 判断提交的数据是否满足模型的要求
         if article_post_form.is_valid():
-            # 保存数据，但暂时不提交到数据库中
             new_article = article_post_form.save(commit=False)
             new_article.author = User.objects.get(id=request.user.id)
             if request.POST['column'] != 'none':
                 new_article.column = Category.objects.get(id=request.POST['column'])
             new_article.save()
             return redirect('myBlog:article_list')
-        # 如果数据不合法，返回错误信息
         else:
-            return HttpResponse("表单内容有误，请重新填写。")
-    # 如果用户请求获取数据
+            return HttpResponse("something wrong")
     else:
-        # 创建表单类实例
         article_post_form = ArticlePostForm()
         columns = Category.objects.all()
         context = {'article_post_form': article_post_form, 'columns': columns}
-        # 返回模板
-        return render(request, 'article/create.html', context)
+        return render(request, template, context)
 
 
 # Update post
 @login_required(login_url='/userprofile/login/')
 def article_update(request, id):
+    redirectAddr = "myBlog:article_detail"
+    template = 'article/update.html'
     article = Article.objects.get(id=id)
     if request.user != article.author:
         return HttpResponse("Sorry,you don't have authorised to modify this post.")
 
     if request.method == "POST":
         article_post_form = ArticlePostForm(data=request.POST)
-        # 判断提交的数据是否满足模型的要求
         if article_post_form.is_valid():
             article.title = request.POST['title']
             article.content = request.POST['content']
@@ -134,10 +127,9 @@ def article_update(request, id):
             else:
                 article.column = None
             article.save()
-            # 完成后返回到修改后的文章中。需传入文章的 id 值
-            return redirect("myBlog:article_detail", id=id)
+            return redirect(redirectAddr, id=id)
         else:
-            return HttpResponse("Something Wrong! Please re-write it.")
+            return HttpResponse("Something went wrong :-(")
     else:
         # create a new form
         article_post_form = ArticlePostForm()
@@ -147,7 +139,7 @@ def article_update(request, id):
             'article_post_form': article_post_form,
             'columns': columns,
         }
-        return render(request, 'article/update.html', context)
+        return render(request, template, context)
 
 
 # About me
@@ -170,7 +162,7 @@ def post_comment(request, article_id):
             new_comment.save()
             return redirect(article)
         else:
-            return HttpResponse("Something Wrong! Please re-write it.")
+            return HttpResponse("Something went wrong :-(")
     # 处理错误请求
     else:
-        return HttpResponse("发表评论仅接受POST请求。")
+        return HttpResponse("ONLY support POST。")

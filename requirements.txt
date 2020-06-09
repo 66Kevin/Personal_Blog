@@ -1,0 +1,4 @@
+Markdown==3.2.2
+PyMySQL==0.9.3
+Django==3.0.6
+Pillow==7.1.2

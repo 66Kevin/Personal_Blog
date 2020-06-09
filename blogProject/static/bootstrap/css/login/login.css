@@ -36,7 +36,7 @@ h1,h2,h3,h4,h5,h6 {
 
 ul, li {
 	margin: 0px;
-	list-style-type: none;
+	list-style-type: circle;
 }
 
 
@@ -466,10 +466,6 @@ profile image
 img {
     vertical-align: middle;
     border-style: none;
-}
-
-ul.social-icons {
-    padding: 15px;
 }
 
 dl, ol, ul {
