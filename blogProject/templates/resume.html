@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Resume {% endblock title %}
+
+{% block content %}
+<!-- Begin page content -->
+<br>
+<main role="main" class="container">
+    <div class="mt-5"></div>
+    <div class="row">
+        <a class="profile-edit-btn" href='{% url "userprofile:editResumePersonalInfo"%}'
+           style="font-size: 20px; text-align: right; padding-bottom: 0;padding-left: 85%"><i class="far fa-edit"></i>
+        </a>
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-md-4">
+                    <img
+                            src="{% static 'img/selfie.JPG'%}"
+                            alt="..."
+                            class="rounded-circle profile-image"
+                    />
+                </div>
+                <div class="col-md-8 top-col">
+                    <h1 class="" style="font-family: inherit;">{{ personal_info.real_name | default:" My Name" }} </h1>
+
+                    <span style="color: #4e555b">{{ personal_info.current_status | default:"Student @ University of Birmingham" }}</span>
+
+                    <ul style="font-family: normal;font-size: 16px;color: #4e555b">
+                        <li style="list-style: none"><i class="fas fa-home" ></i> {{ personal_info.address | default:" My address" }}</li>
+                        <!-- The Metalworks,50 Aston Webb Boulevard,Birmingham-->
+                        <li style="list-style: none"><i class="far fa-envelope"></i> {{ personal_info.email | default:" My email" }}</li>
+                        <li style="list-style: none"><i class="fas fa-phone"></i> {{ personal_info.phone | default:" My phone" }}</li>
+                        <li style="list-style: none"><i class="fas fa-search"></i> {{ personal_info.website | default:" My website address" }}</li>
+                    </ul>
+
+                    <ul class="social-icons">
+                        <li class="linkedin">
+                            <a href="{{personal_info.linkedin}}"><i class="fa fa-fw fa-linkedin"></i></a>
+                        </li>
+                        <li class="github">
+                            <a href="{{personal_info.github}}"><i class="fa fa-fw fa-github"></i></a>
+                        </li>
+                        <li class="medium">
+                            <a href="https://medium.com/_"><i class="fa fa-fw fa-medium"></i></a>
+                        </li>
+                        <li class="mail">
+                            <a href="mailto:{{personal_info.email}}"><i class="fa fa-fw fa-envelope"></i></a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+
+        <a class="profile-edit-btn" href='{% url "userprofile:showResumeEducation" %}'
+           style="font-size: 20px; text-align: right; padding-top: 0;padding-bottom: 0;padding-left: 87%">
+            <i class="far fa-edit"></i>
+            Edit
+        </a>
+
+        <h5 style="text-decoration:underline">EDUCATION </h5>
+        {% for edu in education %}
+        <p style="font-weight: bold; margin: 10px 0 0;font-size: 20px">
+            {{edu.name}}
+            <span style="padding-left: 45%;font-weight: normal;font-size: 18px">
+            {{edu.start_date}}-{{edu.completion_date}}
+        </span>
+            <br>
+        </p>
+        <span style="font-size: 20px">{{edu.programme}}<br></span>
+        <span style="font-size: 20px">{{edu.summary}}</span>
+        {% endfor %}
+        <!--Bachelor of Science in Computer Science (BSc)-->
+
+        <hr class="divider"/>
+
+        <a class="profile-edit-btn" href='{% url "userprofile:showResumeJob" %}'
+           style="font-size: 20px; text-align: right; padding-top: 0;padding-bottom: 0;padding-left: 87%">
+            <i class="far fa-edit"></i>
+            Edit
+        </a>
+
+        <h5 style="text-decoration:underline">INTERNSHIP EXPERIENCE</h5>
+        {% for job in job_list %}
+        <p style="font-weight: bold; margin: 10px 0 0;font-size: 20px">
+            {{job.company}}
+            {{job.title}}
+            <span style="padding-left: 45%;font-weight: normal;font-size: 18px">
+            {{job.start_date}}-{{edu.completion_date}}
+        </span>
+            <br>
+        </p>
+        <span style="font-size: 20px">{{job.location}}<br></span>
+        <span style="font-size: 20px">{{job.description}}</span>
+        {% endfor %}
+
+        <hr class="divider"/>
+
+        <a class="profile-edit-btn" href='{% url "userprofile:showResumeResearch" %}'
+           style="font-size: 20px; text-align: right; padding-top: 0;padding-bottom: 0;padding-left: 87%">
+            <i class="far fa-edit"></i>
+            Edit
+        </a>
+
+        <h5 style="text-decoration:underline">RESEARCH EXPERIENCE</h5>
+        {% for research in research_list %}
+        <strong><p>{{research.name}}</p></strong>
+        <p class="description-text">
+            {{research.summary}}
+        </p>
+        {% endfor %}
+
+
+        <hr class="divider"/>
+        <h5 style="text-decoration:underline">SKILLS</h5>
+        {% for skill in skill_sets %}
+        <ul class="col-sm-6" style="padding-top: 10px">
+            <li>{{skill}}</li>
+        </ul>
+        {% endfor %}
+
+
+    </div>
+
+</main>
+
+
+<script>
+    window.sr = ScrollReveal();
+    sr.reveal('.col-md-4', {
+        duration: 2000,
+        origin: 'left',
+        distance: '300px',
+        viewFactor: 0.2
+    });
+    sr.reveal('.col-md-8', {
+        duration: 2000,
+        origin: 'right',
+        distance: '300px',
+        viewFactor: 0.2
+    });
+    sr.reveal('.content', {
+        duration: 2000,
+        origin: 'bottom',
+        distance: '300px',
+        delay: 1000,
+        viewFactor: 0.2
+    });
+</script>
+
+{%endblock content%}

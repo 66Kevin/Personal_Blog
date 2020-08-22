@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile, ResumePersonalInfo, ResumeEducation, ResumeJob, ResumeReserach, ResumeSkillset
 
 
 # LoginForm
@@ -37,3 +37,38 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('phone', 'avatar', 'bio', 'email', 'nationality', 'real_name','profession', 'english_level', 'location', 'skill1', 'skill2', 'skill3', 'skill4', 'skill5')
+
+
+# ResumePersonalInfoForm
+class ResumePersonalInfoForm(forms.ModelForm):
+    class Meta:
+        model = ResumePersonalInfo
+        fields = ('phone', 'avatar', 'address', 'real_name', 'website', 'email', 'current_status', 'linkedin', 'github')
+
+
+# ResumePersonalInfoForm
+class ResumeEducationForm(forms.ModelForm):
+    class Meta:
+        model = ResumeEducation
+        fields = ('name', 'programme', 'start_date', 'completion_date', 'summary', 'is_current')
+
+
+# ResumeJob
+class ResumeJobForm(forms.ModelForm):
+    class Meta:
+        model = ResumeJob
+        fields = ('company', 'location','title','description','start_date','completion_date','is_current','is_public')
+
+
+# ResumeReserach
+class ResumeReserachForm(forms.ModelForm):
+    class Meta:
+        model = ResumeReserach
+        fields = ('name','location','start_date','completion_date','summary')
+
+
+# ResumeSkillset
+class ResumeSkillsetForm(forms.ModelForm):
+    class Meta:
+        model = ResumeSkillset
+        fields = ('name',)

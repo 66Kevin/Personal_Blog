@@ -1,0 +1,71 @@
+{% extends "base.html" %} {% load static %}
+{% block title %} Edit Resume {% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+
+            <div style="padding-top: 20%">
+
+                {%for key,value in identiy_dict.items%}
+                {%if forloop.first%}
+                <label for={{key}} style="padding-left: 18px">{{key}} : {{value}}  &nbsp;<font color="#ff0000">*</font>This id cannot be changed</label>
+                {%endif%}
+                {%endfor%}
+
+                <br>
+                <label style="padding-left: 18px"> Please enter the <font color="#ff0000">start_data</font>
+                    and <font color="#ff0000">completion_date</font> in a fixed date format:
+                    <font color="#ff0000">YYYY-MM-DD </font>
+                </label>
+
+                <div style="padding-left: 17px;padding-top: 30px">
+                    <a href="#" onclick="confirm_safe_delete()"><i class="far fa-trash-alt"></i> Delete this record</a>
+                    {%for key,value in identiy_dict.items%}
+                    {%if forloop.first%}
+                    <form style="display:none;" id="safe_delete"
+                          action="{% url whoWillBeDeleted value %}"
+                          method="POST">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>
+                    {%endif%}
+                    {%endfor%}
+                </div>
+
+                <form method="post" action="." enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {%for key,value in identiy_dict.items%}
+                    <div class="form-group col-md-4">
+                        {%if forloop.first%}
+                        {%else%}
+                            <label for={{key}}>{{key}}</label>
+                            <input type="text" class="form-control" id={{key}} name={{key}} value="{{value}}">
+                        {%endif%}
+                    </div>
+                    {%endfor%}
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function confirm_safe_delete() {
+        layer.open({
+            title: "Confirm",
+            content: "Do you want to DELETE this record?",
+            yes: function (index, layero) {
+                $('form#safe_delete button').click();
+                layer.close(index);
+            }
+        })
+    }
+</script>
+{%endblock content%}
