@@ -60,9 +60,9 @@
                 </div>
                 <!-- Current state -->
                 <div class="form-group col-md-4">
-                    <label for="current_status">Current state *</label>
-                    <textarea type="text" class="form-control" id="current_status" name="current_status"
-                              rows="12">{{ resumePersonalInfo.bio }}</textarea>
+                    <label for="current_status">Current state <font color="#ff0000">*</font></label>
+                    <input type="text" class="form-control" id="current_status" name="current_status"
+                               value="{{ resumePersonalInfo.current_status }}"></input>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Submit</button>

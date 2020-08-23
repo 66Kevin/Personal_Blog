@@ -65,8 +65,9 @@ def user_register(request):
 # personal consume
 def show_resume(request):
     template = 'resume.html'
-    personal_info = ResumePersonalInfo.objects.all()[0]
+
     education = ResumeEducation.objects.all()
+    personal_info = ResumePersonalInfo.objects.all()[0]
     job_list = ResumeJob.objects.all()
     skill_sets = ResumeSkillset.objects.all()
     research_list = ResumeReserach.objects.all()
