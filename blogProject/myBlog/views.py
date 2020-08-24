@@ -87,7 +87,7 @@ def article_safe_delete(request, id):
     else:
         return HttpResponse("ONlY support POST")
 
-
+@login_required(login_url='/userprofile/login/')
 def article_create(request):
     template = 'article/create.html'
     if request.method == "POST":
@@ -142,9 +142,9 @@ def article_update(request, id):
         return render(request, template, context)
 
 
-# About me
-def about(request):
-    return render(request, 'about.html')
+# # About me
+# def resume(request):
+#     return render(request, 'resume.html')
 
 
 # Comment

@@ -1,0 +1,37 @@
+{% extends "base.html" %} {% load static %}
+{% block title %} Edit Resume {% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+
+            <div style="padding-top: 20%">
+
+                <label style="padding-left: 18px"> Please enter the <font color="#ff0000">start_data</font>
+                    and <font color="#ff0000">completion_date</font> in a fixed date format:
+                    <font color="#ff0000">YYYY-MM-DD </font>
+                </label>
+
+                <form method="post" action="." enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {%for key,value in identiy_dict.items%}
+                    <div class="form-group col-md-4">
+                        {%if forloop.first%}
+                        {%else%}
+                            <label for={{key}}>{{key}}</label>
+                            <input type="text" class="form-control" id={{key}} name={{key}} value="">
+                        {%endif%}
+                    </div>
+                    {%endfor%}
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{%endblock content%}

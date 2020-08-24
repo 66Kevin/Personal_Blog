@@ -1,0 +1,78 @@
+{% extends "base.html" %} {% load static %}
+{% block title %} Edit Resume {% endblock title %}
+
+{% block content %}
+<style>
+    th {
+        background-color: #B8B8B8;
+        height: 50px;
+    }
+
+    td {
+        height: 50px;
+    }
+
+    table {
+        width: 100%;
+    }
+    a.h:LINK {
+        color: red;
+        text-decoration: none;
+    }
+
+    a.h:VISITED {
+        color: green;
+        text-decoration: none;
+    }
+
+    a.h:HOVER {
+        background-color: yellow;
+        text-decoration: none;
+    }
+
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div style="padding-top: 10%">
+                <h3 class="" style="font-family: inherit;">Click id to change</h3>
+            </div>
+
+            <div style="text-align: right">
+                <a href="{% url add_address%}"><i class="fas fa-plus-circle"></i> Add new item</a>
+            </div>
+
+            <div style="padding-top: 30px">
+                <table>
+
+                    <tr>
+                        {%for key in key_list%}
+                        {%if forloop.counter < 6%}
+                        <th>{{key}}</th>
+                        {%endif%}
+                        {%endfor%}
+                    </tr>
+
+                    {%for dict in dict_list%}
+                    <tr>
+                        {%for key,value in dict.items%}
+                            {%if forloop.counter < 6%}
+                                {%if forloop.first%}
+                                    <td><a class="h" href="{% url edit_address value %} ">{{value}}</a></td>
+                                {%else%}
+                                    <td>{{value | slice:'45'}}</td>
+                                {%endif%}
+                            {%endif%}
+                        {%endfor%}
+                    </tr>
+                    {%endfor%}
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{%endblock content%}

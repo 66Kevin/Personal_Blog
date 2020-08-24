@@ -1,0 +1,75 @@
+{% extends "base.html" %} {% load static %}
+{% block title %} Edit Resume {% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <br>
+            <br>
+            <div class="col-md-4">Username: {{ user.username }}</div>
+            <br>
+            {% if profile.avatar %}
+            <div class="col-md-4">Picture</div>
+            <img src="{{ resumePersonalInfo.avatar.url }}" style="max-width: 20%; border-radius: 15%;" class="col-md-4">
+            {% else %}
+            <h5 class="col-md-4">No picture</h5>
+            {% endif %}
+            <br>
+            <form method="post" action="." enctype="multipart/form-data">
+                {% csrf_token %}
+                <!-- avatar -->
+                <div class="form-group col-md-4">
+                    <label for="avatar">Upload</label>
+                    <input type="file" class="form-control-file" name="avatar" id="avatar">
+                </div>
+                <!-- Name -->
+                <div class="form-group col-md-4">
+                    <label for="real_name">Name <font color="#ff0000">*</font></label>
+                    <input type="text" class="form-control" id="real_name" name="real_name" value="{{ resumePersonalInfo.real_name }}">
+                </div>
+                <!-- phone -->
+                <div class="form-group col-md-4">
+                    <label for="phone">Phone <font color="#ff0000">*</font></label>
+                    <input type="text" class="form-control" id="phone" name="phone" value="{{ resumePersonalInfo.phone }}">
+                </div>
+                <!-- Email -->
+                <div class="form-group col-md-4">
+                    <label for="email">Email <font color="#ff0000">*</font></label>
+                    <input type="text" class="form-control" id="email" name="email" value="{{ resumePersonalInfo.email }}">
+                </div>
+                <!--Address -->
+                <div class="form-group col-md-4">
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control" id="address" name="address" value="{{ resumePersonalInfo.address }}">
+                </div>
+                <!-- Website -->
+                <div class="form-group col-md-4">
+                    <label for="website">Website <font color="#ff0000">*</font></label>
+                    <input type="text" class="form-control" id="website" name="website" value="{{ resumePersonalInfo.website }}">
+                </div>
+                <!--Github-->
+                <div class="form-group col-md-4">
+                    <label for="github">Github Address</label>
+                    <input type="text" class="form-control" id="github" name="github" value="{{ resumePersonalInfo.github }}">
+                </div>
+                <!-- Linkin -->
+                <div class="form-group col-md-4">
+                    <label for="linkedin">Linkedln address</label>
+                    <input type="text" class="form-control" id="linkedin" name="linkedin" value="{{ resumePersonalInfo.linkedin }}">
+                </div>
+                <!-- Current state -->
+                <div class="form-group col-md-4">
+                    <label for="current_status">Current state <font color="#ff0000">*</font></label>
+                    <input type="text" class="form-control" id="current_status" name="current_status"
+                               value="{{ resumePersonalInfo.current_status }}"></input>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{%endblock content%}
